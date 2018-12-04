@@ -45,6 +45,11 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         anim.SetTrigger("Parado");
+
+        PowerUp = true;
+        CooldownRate = 0.3f;
+        MoveSpeed = MoveSpeed + 4;
+        RotationSpeed = RotationSpeed + 100;
     }
 
     void Update()
@@ -61,14 +66,15 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
-        if (PowerUp == false)
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 200;
+        /*if (PowerUp == false)
         {
             move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 40;
         }
         else
         {
             move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 60;
-        }
+        }*/
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0));
 
 
@@ -106,7 +112,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //anim.SetTrigger("Pula");
-                jump = true;
+                //jump = true;
             }
             else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
