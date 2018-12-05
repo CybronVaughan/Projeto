@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
-        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 200;
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 60;
         /*if (PowerUp == false)
         {
             move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 40;
@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
             move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 60;
         }*/
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0));
+        //transform.Rotate(new Vector3(0, Input.GetAxis("Mouse Y") * RotationSpeed * Time.deltaTime, 0));
 
 
 

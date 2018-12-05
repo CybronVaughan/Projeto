@@ -2545,7 +2545,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1278957967168086}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 111.022, y: 100.729, z: 65.706}
+  m_LocalPosition: {x: 16.779144, y: 0, z: 15.685931}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4313238512058874}
@@ -3588,7 +3588,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f480091c3c59e4f49a590777b7d70f20, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0e17cb8af5dc0984980d264c71956d70, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
@@ -3704,7 +3704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 2
-  RotationSpeed: 120
+  RotationSpeed: 90
   ForcaPulo: 4
   Footsteps: {fileID: 8300000, guid: 3ff9fcf8763db443d8c48710cdf9ab60, type: 3}
   Death: {fileID: 8300000, guid: 8f53ad2d958c048e5a8e403a20d21df0, type: 3}

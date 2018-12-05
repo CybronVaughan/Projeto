@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/DS.unity
+- path: Assets/Logo.unity
   isLoaded: 1
   isActive: 1
