@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
-public class Intro : MonoBehaviour {
+public class Intro : MonoBehaviour
+{
 
-    public float LogoTime = 0;
+    float timeLeft = 5.0f;
 
-	// Use this for initialization
-	void Start () {
+    // Update is called once per frame
+    void Update()
+    {
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 0)
+        {
+            SceneManager.LoadScene("DS");
+        }
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-        LogoTime +=Time.time;
-        Debug.Log ("O tempo é: " + LogoTime.ToString("00"));
-		
-	}
 }
