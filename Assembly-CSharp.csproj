@@ -76,9 +76,6 @@
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\TrapScript.cs" />
-    <Compile Include="Assets\Warrior Pack Bundle 3 FREE\Code\IKHands.cs" />
-    <Compile Include="Assets\Warrior Pack Bundle 3 FREE\Code\SmoothFollow.cs" />
-    <Compile Include="Assets\Warrior Pack Bundle 3 FREE\Code\WarriorAnimationDemoFREE.cs" />
     <None Include="Assets\Grass And Flowers Pack 1\Example Scene\Skyboxes\_skybox info.txt" />
     <None Include="Assets\MedievalTownExteriors\Readme.txt" />
     <None Include="Assets\Realistic Rock\Shaders\Rock.shader" />
