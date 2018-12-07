@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
-        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 60;
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 140;
         /*if (PowerUp == false)
         {
             move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 40;
