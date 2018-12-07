@@ -67,19 +67,10 @@
     <Compile Include="Assets\Intro.cs" />
     <Compile Include="Assets\Mountain Terrain\Misc\CameraDefault.cs" />
     <Compile Include="Assets\PlayerController.cs" />
-    <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
-    <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
-    <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\CameraSwitch.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\TrapScript.cs" />
     <None Include="Assets\Grass And Flowers Pack 1\Example Scene\Skyboxes\_skybox info.txt" />
     <None Include="Assets\MedievalTownExteriors\Readme.txt" />
     <None Include="Assets\Realistic Rock\Shaders\Rock.shader" />
-    <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Public/Documents/Git/PI/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

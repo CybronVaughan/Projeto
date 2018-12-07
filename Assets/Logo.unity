@@ -274,6 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bloops: {fileID: 8300000, guid: cd5817e224b2b4d579cf0d0d8bfce316, type: 3}
   Camera: {fileID: 486721974}
+  Player: {fileID: 1278957967168086, guid: 77b199f881f83c54d80096299800d1b7, type: 2}
 --- !u!82 &486721979
 AudioSource:
   m_ObjectHideFlags: 0

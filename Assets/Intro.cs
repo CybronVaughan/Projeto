@@ -7,6 +7,7 @@ public class Intro : MonoBehaviour
     float timeLeft = 15.0f;
     public AudioClip Bloops;
     public GameObject Camera;
+    public GameObject Player;
 
     // Update is called once per frame
     void Update()
@@ -14,13 +15,8 @@ public class Intro : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            PlaySound(Bloops, Camera);
+            Player.GetComponent<PlayerController>().PlaySound(Bloops, Camera);
             SceneManager.LoadScene("DS");
         }
-    }
-
-    public void PlaySound(AudioClip clip, GameObject Object)
-    {
-        AudioSource.PlayClipAtPoint(clip, Object.transform.position);
     }
 }
