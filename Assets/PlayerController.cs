@@ -9,11 +9,14 @@ public class PlayerController : MonoBehaviour
     public float RotationSpeed;
     public float ForcaPulo;
     public AudioClip Footsteps;
+    public AudioClip WaterFootsteps;
     public AudioClip Death;
     private float CooldownRate = 0.5f;
     private float CooldownTimer = 0;
+    public GameObject FootPos;
+    public GameObject PlayerCamera;
 
-    [HideInInspector] public bool PowerUp = false;
+    [HideInInspector] public bool Water = false;
 
     CharacterController cc;
     private Animator anim;
@@ -23,11 +26,13 @@ public class PlayerController : MonoBehaviour
 
     public int Health = 3;
 
+
     public void Damage()
     {
         Health--;
         if (Health <= 0)
         {
+            PlayerCamera.transform.parent = null;
             PlaySound(Death, gameObject);
 
             anim.SetBool("Parado", false);
@@ -35,7 +40,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Corre", false);
             anim.SetTrigger("Morte");
 
-            Camera.main.transform.SetParent(null);
             Destroy(gameObject);
         }
     }
@@ -46,7 +50,6 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetTrigger("Parado");
 
-        PowerUp = true;
         CooldownRate = 0.3f;
         MoveSpeed = MoveSpeed + 4;
         RotationSpeed = RotationSpeed + 100;
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
-        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 140;
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 80;
         /*if (PowerUp == false)
         {
             move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 40;
@@ -99,7 +102,13 @@ public class PlayerController : MonoBehaviour
         if (CooldownTimer == 0f && cc.isGrounded == true && cc.velocity.magnitude > 2f)
         {
             CooldownTimer = CooldownRate;
-            PlaySound(Footsteps, gameObject);
+            if (Water)
+            {
+                PlaySound(WaterFootsteps, FootPos);
+            } else
+            {
+                PlaySound(Footsteps, FootPos);
+            }
         }
 
         if (!Input.anyKey)
@@ -117,31 +126,18 @@ public class PlayerController : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
-                
-                if (PowerUp == false)
-                {
-                    anim.SetBool("Anda", true);
-                    anim.SetBool("Parado", false);
-                    anim.SetBool("Corre", false);
-                }
-                else
-                {
-                    anim.SetBool("Corre", true);
-                    anim.SetBool("Parado", false);
-                    anim.SetBool("Anda", false);
-                }
             }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Gem"))
+        if (other.gameObject.CompareTag("Water"))
         {
-            PowerUp = true;
-            CooldownRate = 0.3f;
-            MoveSpeed = MoveSpeed + 4;
-            RotationSpeed = RotationSpeed + 100;
+            Water = true;
+        } else
+        {
+            Water = false;
         }
     }
 

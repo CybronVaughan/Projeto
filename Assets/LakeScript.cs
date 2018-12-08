@@ -12,8 +12,56 @@ public class LakeScript : MonoBehaviour {
     {
         if (other.CompareTag("Player") && Trigger == 0)
         {
-            Camera.GetComponent<AudioSource>().mute = true;
+            Camera.GetComponent<AudioSource>().clip = PeacefulMoments;
+            Camera.GetComponent<AudioSource>().Play();
             Trigger++;
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             //other.GetComponent<PlayerController>().PlaySound(PeacefulMoments, other.gameObject);
         }
     }
