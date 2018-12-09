@@ -72,10 +72,14 @@
     <Compile Include="Assets\TrapAttack.cs" />
     <Compile Include="Assets\TrapScript.cs" />
     <Compile Include="Assets\TrapTrigger.cs" />
+    <None Include="Assets\Low Poly UI Kit - v.1.1c\UI Kit\AI Files\README.txt" />
     <None Include="Assets\Rocklynn Productions - Water Splash Pack\Read me.txt" />
+    <None Include="Assets\Low Poly UI Kit - v.1.1c\UI Kit\Font\README.txt" />
     <None Include="Assets\Grass And Flowers Pack 1\Example Scene\Skyboxes\_skybox info.txt" />
     <None Include="Assets\MedievalTownExteriors\Readme.txt" />
+    <None Include="Assets\Low Poly UI Kit - v.1.1c\README.txt" />
     <None Include="Assets\Realistic Rock\Shaders\Rock.shader" />
+    <None Include="Assets\Melee Weapons Icons\Read Me.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Public/Documents/Git/PI/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
