@@ -5,9 +5,8 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
-    public float MoveSpeed;
-    public float RotationSpeed;
-    public float ForcaPulo;
+    private float MoveSpeed = 6;
+    private float RotationSpeed = 180;
     public AudioClip Footsteps;
     public AudioClip WaterFootsteps;
     public AudioClip Death;
@@ -15,6 +14,14 @@ public class PlayerController : MonoBehaviour
     private float CooldownTimer = 0;
     public GameObject FootPos;
     public GameObject PlayerCamera;
+
+    [HideInInspector] public string Ataque = "Ataque";
+    [HideInInspector] public string Corre = "Corre";
+    [HideInInspector] public string Anda = "Anda";
+    [HideInInspector] public string Hit = "Hit";
+    [HideInInspector] public string Parado = "Parado";
+    [HideInInspector] public string Morte = "Morte";
+    [HideInInspector] private string animacao;
 
     [HideInInspector] public bool Water = false;
 
@@ -34,11 +41,7 @@ public class PlayerController : MonoBehaviour
         {
             PlayerCamera.transform.parent = null;
             PlaySound(Death, gameObject);
-
-            anim.SetBool("Parado", false);
-            anim.SetBool("Anda", false);
-            anim.SetBool("Corre", false);
-            anim.SetTrigger("Morte");
+            Anima(Morte);
 
             Destroy(gameObject);
         }
@@ -48,17 +51,12 @@ public class PlayerController : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-        anim.SetTrigger("Parado");
-
         CooldownRate = 0.3f;
-        MoveSpeed = MoveSpeed + 4;
-        RotationSpeed = RotationSpeed + 100;
+        animacao = Parado;
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K)) { Damage(); }
-
         if (CooldownTimer < 0)
         {
             CooldownTimer = 0;
@@ -70,31 +68,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
         move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 80;
-        /*if (PowerUp == false)
-        {
-            move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 40;
-        }
-        else
-        {
-            move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 60;
-        }*/
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0));
-        //transform.Rotate(new Vector3(0, Input.GetAxis("Mouse Y") * RotationSpeed * Time.deltaTime, 0));
-
-
-
         if (!cc.isGrounded)
         {
             gravidade += Physics.gravity * Time.deltaTime;
-        }
-        else
-        {
-            gravidade = Vector3.zero;
-            if (jump)
-            {
-                gravidade.y = ForcaPulo;
-                jump = false;
-            }
         }
         move += gravidade;
         cc.Move(move * Time.deltaTime);
@@ -105,7 +82,8 @@ public class PlayerController : MonoBehaviour
             if (Water)
             {
                 PlaySound(WaterFootsteps, FootPos);
-            } else
+            }
+            else
             {
                 PlaySound(Footsteps, FootPos);
             }
@@ -113,21 +91,30 @@ public class PlayerController : MonoBehaviour
 
         if (!Input.anyKey)
         {
-            anim.SetBool("Parado", true);
-            anim.SetBool("Anda", false);
-            anim.SetBool("Corre", false);
+            Anima(Parado);
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //anim.SetTrigger("Pula");
-                //jump = true;
+                Anima(Ataque);
             }
-            else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && ((!Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.DownArrow))))
             {
+                Anima(Corre);
+            }
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
+            {
+                Anima(Anda);
             }
         }
+    }
+
+    private void Anima(string anima)
+    {
+        anim.SetBool(animacao, false);
+        anim.SetBool(anima, true);
+        animacao = anima;
     }
 
     void OnTriggerEnter(Collider other)
@@ -135,7 +122,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Water"))
         {
             Water = true;
-        } else
+        }
+        else
         {
             Water = false;
         }
