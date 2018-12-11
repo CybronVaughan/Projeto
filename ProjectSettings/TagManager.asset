@@ -7,6 +7,7 @@ TagManager:
   - Gem
   - Water
   - Terrain
+  - Enemy
   layers:
   - Default
   - TransparentFX

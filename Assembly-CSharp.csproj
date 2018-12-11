@@ -64,11 +64,13 @@
     <Compile Include="Assets\CloseLabyrinth.cs" />
     <Compile Include="Assets\com\heparo\terrain\toolkit\scripts\TerrainToolkit.cs" />
     <Compile Include="Assets\GemScript.cs" />
+    <Compile Include="Assets\GolemAttackScript.cs" />
     <Compile Include="Assets\Grass And Flowers Pack 1\Example Scene\SimpleTextureDrawing.cs" />
     <Compile Include="Assets\Intro.cs" />
     <Compile Include="Assets\LakeScript.cs" />
     <Compile Include="Assets\Mountain Terrain\Misc\CameraDefault.cs" />
     <Compile Include="Assets\PlayerController.cs" />
+    <Compile Include="Assets\SpearScript.cs" />
     <Compile Include="Assets\TrapAttack.cs" />
     <Compile Include="Assets\TrapScript.cs" />
     <Compile Include="Assets\TrapTrigger.cs" />

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip Footsteps;
     public AudioClip WaterFootsteps;
     public AudioClip Death;
-    private float CooldownRate = 0.5f;
+    private float CooldownRate = 0.3f;
     private float CooldownTimer = 0;
     public GameObject FootPos;
     public GameObject PlayerCamera;
@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-        CooldownRate = 0.3f;
         animacao = Parado;
     }
 
@@ -67,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
-        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 80;
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 80 * (MoveSpeed/6);
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0));
         if (!cc.isGrounded)
         {
@@ -76,7 +75,7 @@ public class PlayerController : MonoBehaviour
         move += gravidade;
         cc.Move(move * Time.deltaTime);
 
-        if (CooldownTimer == 0f && cc.isGrounded == true && cc.velocity.magnitude > 2f)
+        if (CooldownTimer == 0f && cc.isGrounded == true && cc.velocity.magnitude > 1f)
         {
             CooldownTimer = CooldownRate;
             if (Water)
@@ -102,10 +101,14 @@ public class PlayerController : MonoBehaviour
             else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && ((!Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.DownArrow))))
             {
                 Anima(Corre);
+                MoveSpeed = 6;
+                CooldownRate = 0.3f;
             }
-            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
+            else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.UpArrow)))
             {
                 Anima(Anda);
+                MoveSpeed = 2;
+                CooldownRate = 0.5f;
             }
         }
     }
