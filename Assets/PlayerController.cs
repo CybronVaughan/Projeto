@@ -122,11 +122,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Water") || other.gameObject.CompareTag("Spear"))
+        if (other.gameObject.CompareTag("Water"))
         {
             Water = true;
         }
-        else if (!other.gameObject.CompareTag("Water") || other.gameObject.CompareTag("Spear"))
+        else if (!other.gameObject.CompareTag("Water"))
         {
             Water = false;
         }

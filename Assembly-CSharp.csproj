@@ -70,6 +70,7 @@
     <Compile Include="Assets\LakeScript.cs" />
     <Compile Include="Assets\Mountain Terrain\Misc\CameraDefault.cs" />
     <Compile Include="Assets\PlayerController.cs" />
+    <Compile Include="Assets\PlayerManager.cs" />
     <Compile Include="Assets\TrapAttack.cs" />
     <Compile Include="Assets\TrapScript.cs" />
     <Compile Include="Assets\TrapTrigger.cs" />
