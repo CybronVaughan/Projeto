@@ -8,6 +8,7 @@ public class GolemAttackScript : MonoBehaviour {
     [HideInInspector] public float lookRadius = 10f;
     Transform target;
     NavMeshAgent agent;
+    public bool ready = false;
 
 	// Use this for initialization
 	void Start () {
@@ -18,11 +19,33 @@ public class GolemAttackScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float distance = Vector3.Distance(target.position, transform.position);
-        if(distance <= lookRadius)
+        if (distance <= lookRadius)
         {
+            GetComponent<Animation>().Play("walk");
             agent.SetDestination(target.position);
+            if (distance <= agent.stoppingDistance)
+            {
+                FaceTarget();
+            }
+        }
+
+        if(agent.velocity.magnitude < 1f)
+        {
+            GetComponent<Animation>().Play("idle");
         }
 	}
+
+    private void Attack()
+    {
+        GetComponent<Animation>().Play("punch");
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.5f);
+    }
 
     private void OnDrawGizmosSelected()
     {
