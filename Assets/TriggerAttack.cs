@@ -22,7 +22,7 @@ public class TriggerAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Enemy.GetComponent<Animation>().Play("hpunch");
+            
         }
     }
 }

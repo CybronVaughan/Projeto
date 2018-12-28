@@ -9,19 +9,21 @@ public class GolemAttackScript : MonoBehaviour {
     Transform target;
     NavMeshAgent agent;
     public bool ready = false;
+    public Animator animgolem;
+    private string anim = "idle";
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         target = PlayerManager.instance.Player.transform;
-        agent = GetComponent<NavMeshAgent>();		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        agent = GetComponent<NavMeshAgent>();
+        animgolem = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update() {
         float distance = Vector3.Distance(target.position, transform.position);
         if (distance <= lookRadius)
         {
-            GetComponent<Animation>().Play("walk");
             agent.SetDestination(target.position);
             if (distance <= agent.stoppingDistance)
             {
@@ -29,15 +31,19 @@ public class GolemAttackScript : MonoBehaviour {
             }
         }
 
-        if(agent.velocity.magnitude < 1f)
+        if (agent.velocity.magnitude >= 1f)
         {
-            GetComponent<Animation>().Play("idle");
+            GolemAnima("walk");
         }
-	}
+        else
+        {
+            GolemAnima("idle");
+        }
+    }
 
     private void Attack()
     {
-        GetComponent<Animation>().Play("punch");
+
     }
 
     private void FaceTarget()
@@ -51,5 +57,12 @@ public class GolemAttackScript : MonoBehaviour {
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+
+    private void GolemAnima(string animus)
+    {
+        animgolem.SetBool(anim, false);
+        animgolem.SetBool(animus, true);
+        anim = animus;
     }
 }

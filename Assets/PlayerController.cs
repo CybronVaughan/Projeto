@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private float MoveSpeed = 6;
     private float RotationSpeed = 180;
     public AudioClip Footsteps;
-    public AudioClip WaterFootsteps;
     public AudioClip Death;
     private float CooldownRate = 0.3f;
     private float CooldownTimer = 0;
@@ -21,9 +20,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public string Hit = "Hit";
     [HideInInspector] public string Parado = "Parado";
     [HideInInspector] public string Morte = "Morte";
-    [HideInInspector] private string animacao;
-
-    [HideInInspector] public bool Water = false;
+    private string animacao;
+    private int h = 1;
 
     CharacterController cc;
     private Animator anim;
@@ -65,9 +63,18 @@ public class PlayerController : MonoBehaviour
             CooldownTimer -= Time.deltaTime;
         }
 
-        Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed;
-        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 150;
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0));
+        if (anim.GetBool(Ataque))
+        {
+            h = 0;
+        }
+        else
+        {
+            h = 1;
+        }
+
+        Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed * h;
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 150 * h;
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime * h, 0));
         if (!cc.isGrounded)
         {
             gravidade += Physics.gravity * Time.deltaTime;
@@ -78,25 +85,24 @@ public class PlayerController : MonoBehaviour
         if (CooldownTimer == 0f && cc.isGrounded == true && cc.velocity.magnitude > 1f)
         {
             CooldownTimer = CooldownRate;
-            if (Water)
-            {
-                PlaySound(WaterFootsteps, FootPos);
-            }
-            else
-            {
-                PlaySound(Footsteps, FootPos);
-            }
+            PlaySound(Footsteps, FootPos);
         }
 
         if (!Input.anyKey)
         {
-            Anima(Parado);
+            if (!anim.GetBool(Ataque))
+            {
+                Anima(Parado);
+            }
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Anima(Ataque);
+                if (anim.GetBool(Parado))
+                {
+                    Anima(Ataque);
+                }
             }
             else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && ((!Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.DownArrow))))
             {
@@ -118,18 +124,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(animacao, false);
         anim.SetBool(anima, true);
         animacao = anima;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Water"))
-        {
-            Water = true;
-        }
-        else if (!other.gameObject.CompareTag("Water"))
-        {
-            Water = false;
-        }
     }
 
     public void PlaySound(AudioClip clip, GameObject Object)
