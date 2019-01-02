@@ -22,7 +22,8 @@ public class TriggerAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
+            //Enemy.GetComponent<Animator>().SetBool("punch", true);
+            Enemy.GetComponent<GolemAttackScript>().GolemAnima("punch");
         }
     }
 }

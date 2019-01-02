@@ -13,23 +13,21 @@ public class PlayerController : MonoBehaviour
     private float CooldownTimer = 0;
     public GameObject FootPos;
     public GameObject PlayerCamera;
-
-    [HideInInspector] public string Ataque = "Ataque";
-    [HideInInspector] public string Corre = "Corre";
-    [HideInInspector] public string Anda = "Anda";
-    [HideInInspector] public string Hit = "Hit";
-    [HideInInspector] public string Parado = "Parado";
-    [HideInInspector] public string Morte = "Morte";
+    private string Ataque = "Ataque";
+    private string Corre = "Corre";
+    private string Anda = "Anda";
+    private string Hit = "Hit";
+    private string Parado = "Parado";
+    private string Morte = "Morte";
     private string animacao;
-    private int h = 1;
-
     CharacterController cc;
     private Animator anim;
     protected Vector3 gravidade = Vector3.zero;
     protected Vector3 move = Vector3.zero;
     private bool jump = false;
-
+    private float Attack = 0f;
     public int Health = 3;
+    private int h = 1;
 
 
     public void Damage()
@@ -40,8 +38,6 @@ public class PlayerController : MonoBehaviour
             PlayerCamera.transform.parent = null;
             PlaySound(Death, gameObject);
             Anima(Morte);
-
-            Destroy(gameObject);
         }
     }
 
@@ -54,6 +50,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Attack > 0f && Attack <= 0.5f)
+        {
+            Attack = Attack - Time.deltaTime;
+        }
+        else if (Attack <= 0f)
+        {
+            Attack = 0f;
+            anim.SetBool(Ataque, false);
+        }
+
         if (CooldownTimer < 0)
         {
             CooldownTimer = 0;
@@ -63,11 +69,7 @@ public class PlayerController : MonoBehaviour
             CooldownTimer -= Time.deltaTime;
         }
 
-        if (anim.GetBool(Ataque))
-        {
-            h = 0;
-        }
-        else
+        if (!anim.GetBool(Ataque) && Attack == 0f)
         {
             h = 1;
         }
@@ -88,29 +90,25 @@ public class PlayerController : MonoBehaviour
             PlaySound(Footsteps, FootPos);
         }
 
-        if (!Input.anyKey)
+        if (!Input.anyKey && !anim.GetBool(Ataque) && Attack <= 0f)
         {
-            if (!anim.GetBool(Ataque))
-            {
-                Anima(Parado);
-            }
+            Anima(Parado);            
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && anim.GetBool(Parado))
             {
-                if (anim.GetBool(Parado))
-                {
-                    Anima(Ataque);
-                }
+                Attack = 0.5f;
+                h = 0;
+                Anima(Ataque);
             }
-            else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && ((!Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.DownArrow))))
+            else if (!anim.GetBool(Ataque) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && ((!Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.DownArrow))))
             {
                 Anima(Corre);
                 MoveSpeed = 6;
                 CooldownRate = 0.3f;
             }
-            else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.UpArrow)))
+            else if (!anim.GetBool(Ataque) && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.UpArrow)))
             {
                 Anima(Anda);
                 MoveSpeed = 2;

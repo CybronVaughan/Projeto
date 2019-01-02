@@ -10,7 +10,12 @@ public class GolemAttackScript : MonoBehaviour {
     NavMeshAgent agent;
     public bool ready = false;
     public Animator animgolem;
-    private string anim = "idle";
+    private string idle = "idle";
+    private string walk = "walk";
+    private string hit = "hit";
+    private string punch = "punch";
+    private string death = "death";
+    public string anim = "idle";
 
     // Use this for initialization
     void Start() {
@@ -33,11 +38,11 @@ public class GolemAttackScript : MonoBehaviour {
 
         if (agent.velocity.magnitude >= 1f)
         {
-            GolemAnima("walk");
+            GolemAnima(walk);
         }
         else
         {
-            GolemAnima("idle");
+            GolemAnima(idle);
         }
     }
 
@@ -59,7 +64,7 @@ public class GolemAttackScript : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
-    private void GolemAnima(string animus)
+    public void GolemAnima(string animus)
     {
         animgolem.SetBool(anim, false);
         animgolem.SetBool(animus, true);
