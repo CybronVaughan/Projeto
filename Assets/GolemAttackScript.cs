@@ -36,19 +36,14 @@ public class GolemAttackScript : MonoBehaviour {
             }
         }
 
-        if (agent.velocity.magnitude >= 1f)
+        if (agent.velocity.magnitude >= 1f && !animgolem.GetBool(punch))
         {
             GolemAnima(walk);
         }
-        else
+        else if (agent.velocity.magnitude < 1f && !animgolem.GetBool(punch))
         {
             GolemAnima(idle);
         }
-    }
-
-    private void Attack()
-    {
-
     }
 
     private void FaceTarget()
