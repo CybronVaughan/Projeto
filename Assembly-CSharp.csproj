@@ -74,7 +74,6 @@
     <Compile Include="Assets\TrapAttack.cs" />
     <Compile Include="Assets\TrapScript.cs" />
     <Compile Include="Assets\TrapTrigger.cs" />
-    <Compile Include="Assets\TriggerAttack.cs" />
     <None Include="Assets\Low Poly UI Kit - v.1.1c\UI Kit\AI Files\README.txt" />
     <None Include="Assets\Rocklynn Productions - Water Splash Pack\Read me.txt" />
     <None Include="Assets\Low Poly UI Kit - v.1.1c\UI Kit\Font\README.txt" />

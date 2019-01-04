@@ -713,7 +713,6 @@ GameObject:
   - component: {fileID: 165650105}
   - component: {fileID: 165650109}
   - component: {fileID: 165650107}
-  - component: {fileID: 165650106}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -730,24 +729,11 @@ Transform:
   m_GameObject: {fileID: 165650104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.43, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children: []
   m_Father: {fileID: 1028647713}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &165650106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165650104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e750c156241c3e47a63f5d4e29b3333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Enemy: {fileID: 263493932}
 --- !u!65 &165650107
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5486,15 +5472,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 8ba535c70bbcf7b46b0cba1188faae47, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 8ba535c70bbcf7b46b0cba1188faae47, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 8ba535c70bbcf7b46b0cba1188faae47, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8ba535c70bbcf7b46b0cba1188faae47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

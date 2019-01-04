@@ -65,4 +65,12 @@ public class GolemAttackScript : MonoBehaviour {
         animgolem.SetBool(animus, true);
         anim = animus;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
