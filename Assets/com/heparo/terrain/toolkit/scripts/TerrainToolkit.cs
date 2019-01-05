@@ -1652,7 +1652,9 @@ public class TerrainToolkit : MonoBehaviour {
 		if( ter==null)	return;
 		
 		TerrainData terData = ter.terrainData;
+#pragma warning disable CS0618 // Type or member is obsolete
 		splatPrototypes = terData.splatPrototypes;
+#pragma warning restore CS0618 // Type or member is obsolete
 		int nTextures = splatPrototypes.Length;
 		
 		if( nTextures<2 ){
@@ -2546,7 +2548,9 @@ public class TerrainToolkit : MonoBehaviour {
 		}
 		Terrain ter = (Terrain) GetComponent(typeof(Terrain));
 		TerrainData terData = ter.terrainData;
+#pragma warning disable CS0618 // Type or member is obsolete
 		splatPrototypes = terData.splatPrototypes;
+#pragma warning restore CS0618 // Type or member is obsolete
 		deleteAllSplatPrototypes();
 		int n = 0;
 		foreach (Texture2D tex in textures){
@@ -2560,7 +2564,9 @@ public class TerrainToolkit : MonoBehaviour {
 			heightBlendPoints[n] = stop;
 			n++;
 		}
+#pragma warning disable CS0618 // Type or member is obsolete
 		terData.splatPrototypes = splatPrototypes;
+#pragma warning restore CS0618 // Type or member is obsolete
 		TextureProgressDelegate textureProgressDelegate = new TextureProgressDelegate(dummyTextureProgress);
 		textureTerrain(textureProgressDelegate);
 	}
@@ -2771,7 +2777,9 @@ public class TerrainToolkit : MonoBehaviour {
 			deleteAllBlendPoints();
 			
 			// Reset splats !
+#pragma warning disable CS0618 // Type or member is obsolete
 			terData.splatPrototypes = splatPrototypes;
+#pragma warning restore CS0618 // Type or member is obsolete
 			
 			int Tw = terData.heightmapWidth;
 			int Th = terData.heightmapHeight;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
@@ -9,10 +10,16 @@ public class PlayerController : MonoBehaviour
     private float RotationSpeed = 180;
     public AudioClip Footsteps;
     public AudioClip Death;
+    public AudioClip Hitsound;
+    public AudioClip Swoosh;
+    public Image Health01;
+    public Image Health02;
+    public Image Health03;
     private float CooldownRate = 0.3f;
     private float CooldownTimer = 0;
     public GameObject FootPos;
     public GameObject PlayerCamera;
+    public GameObject Spear;
     private string Ataque = "Ataque";
     private string Corre = "Corre";
     private string Anda = "Anda";
@@ -24,7 +31,6 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     protected Vector3 gravidade = Vector3.zero;
     protected Vector3 move = Vector3.zero;
-    private bool jump = false;
     private float Attack = 0f;
     public int Health = 3;
     private int h = 1;
@@ -33,11 +39,37 @@ public class PlayerController : MonoBehaviour
     public void Damage()
     {
         Health--;
+        PlaySound(Hitsound, gameObject);
+        Anima(Hit);
+        switch (Health)
+        {
+            case 2:
+                {
+                    Health03.enabled = false;
+                    break;
+                }
+            case 1:
+                {
+                    Health02.enabled = false;
+                    break;
+                }
+            case 0:
+                {
+                    Health01.enabled = false;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+
         if (Health <= 0)
         {
             PlayerCamera.transform.parent = null;
             PlaySound(Death, gameObject);
             Anima(Morte);
+            GetComponent<PlayerController>().enabled = false;
         }
     }
 
@@ -101,6 +133,7 @@ public class PlayerController : MonoBehaviour
                 Attack = 0.5f;
                 h = 0;
                 Anima(Ataque);
+                PlaySound (Swoosh, Spear);
             }
             else if (!anim.GetBool(Ataque) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && ((!Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.DownArrow))))
             {

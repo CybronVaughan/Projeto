@@ -3,29 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GolemAttackScript : MonoBehaviour {
+public class GolemAttackScript : MonoBehaviour
+{
 
     [HideInInspector] public float lookRadius = 10f;
     Transform target;
     NavMeshAgent agent;
-    public bool ready = false;
     public Animator animgolem;
     private string idle = "idle";
     private string walk = "walk";
     private string hit = "hit";
     private string punch = "punch";
     private string death = "death";
-    public string anim = "idle";
+    private string anim = "idle";
+    public GameObject Player;
+    public AudioClip GolemHit;
+    public AudioClip GolemDeath;
+    public int GolemHealth = 3;
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         target = PlayerManager.instance.Player.transform;
         agent = GetComponent<NavMeshAgent>();
         animgolem = GetComponent<Animator>();
     }
 
+    public void GolemDamage()
+    {
+        GolemHealth--;
+        Player.GetComponent<PlayerController>().PlaySound(GolemHit, gameObject);
+        GolemAnima(hit);
+        if (GolemHealth <= 0)
+        {
+            Player.GetComponent<PlayerController>().PlaySound(GolemDeath, gameObject);
+            GolemAnima(death);
+            GetComponent<GolemAttackScript>().enabled = false;
+        }
+    }
+
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         float distance = Vector3.Distance(target.position, transform.position);
         if (distance <= lookRadius)
         {
@@ -40,9 +59,13 @@ public class GolemAttackScript : MonoBehaviour {
         {
             GolemAnima(walk);
         }
-        else if (agent.velocity.magnitude < 1f && !animgolem.GetBool(punch))
+        else if (agent.velocity.magnitude < 1f && !animgolem.GetBool(punch) || agent.velocity.magnitude < 1f && Player.GetComponent<PlayerController>().Health <= 0)
         {
             GolemAnima(idle);
+        }
+        if (animgolem.GetBool(hit))
+        {
+            GolemAnima(punch);
         }
     }
 
@@ -68,9 +91,16 @@ public class GolemAttackScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject == Player && other.GetComponent<PlayerController>().Health > 0)
         {
-            Destroy(gameObject);
+            GolemAnima(punch);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == Player)
+        {
+            GolemAnima(walk);
         }
     }
 }
