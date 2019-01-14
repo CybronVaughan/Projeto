@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Intro : MonoBehaviour
 {
-    float timeLeft = 15.0f;
+    public float timeLeft = 3.0f;
     public AudioClip Bloops;
     public GameObject Camera;
     public GameObject Player;
@@ -16,7 +16,7 @@ public class Intro : MonoBehaviour
         if (timeLeft < 0)
         {
             Player.GetComponent<PlayerController>().PlaySound(Bloops, Camera);
-            SceneManager.LoadScene("DS");
+            SceneManager.LoadScene("Menu");
         }
     }
 }
