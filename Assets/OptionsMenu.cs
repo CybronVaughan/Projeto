@@ -49,7 +49,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetBrightness(float brightness)
     {
-        RenderSettings.ambientLight = new Color(brightness,brightness, brightness, 1.0f);
+        RenderSettings.ambientLight = new Color(brightness, brightness, brightness, 1.0f);
+
     }
 
     public void SetFullscreen (bool isFullscreen)
