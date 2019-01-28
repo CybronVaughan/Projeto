@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GolemAttackScript : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class GolemAttackScript : MonoBehaviour
     public AudioClip GolemHit;
     public AudioClip GolemDeath;
     public int GolemHealth = 3;
+    public Image Heart1, Heart2, Heart3;
 
     // Use this for initialization
     void Start()
@@ -34,10 +36,33 @@ public class GolemAttackScript : MonoBehaviour
         GolemHealth--;
         Player.GetComponent<PlayerController>().PlaySound(GolemHit, gameObject);
         GolemAnima(hit);
+        switch (GolemHealth)
+        {
+            case 2:
+                {
+                    Heart1.enabled = false;
+                    break;
+                }
+            case 1:
+                {
+                    Heart2.enabled = false;
+                    break;
+                }
+            case 0:
+                {
+                    Heart3.enabled = false;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
         if (GolemHealth <= 0)
         {
             Player.GetComponent<PlayerController>().PlaySound(GolemDeath, gameObject);
             GolemAnima(death);
+            Player.GetComponent<PlayerController>().PlayerCamera.GetComponent<GameOverTimer>().timer = 3f;
             GetComponent<GolemAttackScript>().enabled = false;
         }
     }
@@ -67,6 +92,11 @@ public class GolemAttackScript : MonoBehaviour
         {
             GolemAnima(punch);
         }
+
+        if (Player.GetComponent<PlayerController>().isActiveAndEnabled == false && animgolem.GetBool(punch))
+        {
+            GolemAnima(idle);
+        }
     }
 
     private void FaceTarget()
@@ -91,14 +121,14 @@ public class GolemAttackScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == Player && other.GetComponent<PlayerController>().Health > 0)
+        if (other.gameObject == Player && other.GetComponent<PlayerController>().Health > 0 && other.GetComponent<PlayerController>().isActiveAndEnabled == true)
         {
             GolemAnima(punch);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == Player)
+        if (other.gameObject == Player && other.GetComponent<PlayerController>().isActiveAndEnabled == true)
         {
             GolemAnima(walk);
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (Health <= 0)
         {
+            PlayerCamera.GetComponent<GameOverTimer>().timer = 3f;
             PlayerCamera.transform.parent = null;
             PlaySound(Death, gameObject);
             Anima(Morte);
@@ -78,6 +80,9 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         animacao = Parado;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -107,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * MoveSpeed * h;
-        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 150 * h;
+        move += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 85* h;
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime * h, 0));
         if (!cc.isGrounded)
         {

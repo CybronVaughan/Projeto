@@ -6,10 +6,9 @@ public class TrapAttack : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.GetComponent<PlayerController>().Health > 0 && other.GetComponent<PlayerController>().isActiveAndEnabled == true)
         {
-            other.GetComponent<PlayerController>().PlayerCamera.transform.parent = null;
-            Destroy(other.gameObject);
+            other.GetComponent<PlayerController>().Damage();
         }
     }
 

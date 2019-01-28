@@ -5,12 +5,18 @@ using UnityEngine.UI;
 
 public class FadeScript : MonoBehaviour
 {
-    public float duration = 5;
+    private float duration = 10f;
     private float ratio;
+    private bool starter = false;
+
+    private void Start()
+    {
+        starter = true;
+    }
 
     void Update()
     {
-        if (Time.time > duration)
+        if (Time.time > duration && starter)
         {
             Destroy(gameObject);
         }

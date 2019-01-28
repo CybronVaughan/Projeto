@@ -20,7 +20,7 @@ public class SpearScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == Enemy && Enemy.GetComponent<GolemAttackScript>().GolemHealth > 0)
+        if (other.gameObject == Enemy && Enemy.GetComponent<GolemAttackScript>().GolemHealth > 0 && Enemy.GetComponent<GolemAttackScript>().Player.GetComponent<Animator>().GetBool("Ataque"))
         {
             Enemy.GetComponent<GolemAttackScript>().GolemDamage();
         }
